@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>tayama222's tweets</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+  <div id="tweet" class="section">
+    <div v-if="account">
+      <div class="section" style="text-align: center;">
+        <img src="./assets/icon.jpg" style="border-radius:50%;" width="150" height="150">
+        <p class="title is-4"><strong>{{ account.username }}</strong></p>
+      </div>
+
+      <div class="tabs is-centered">
+        <ul>
+          <li :class='tab==0 ? "is-active" : ""' v-on:click="changeTab(0)"><a>Top</a></li>
+          <li :class='tab==1 ? "is-active" : ""' v-on:click="changeTab(1)"><a>Tweets</a></li>
+          <li :class='tab==2 ? "is-active" : ""' v-on:click="changeTab(2)"><a>Timeline</a></li>
+        </ul>
+      </div>
+
+      <div v-if="tab==0">
+        <div v-for="line in topMedia" style="text-align: center;">
+          <span v-for="m in line.line" class="medialine" style="text-align: center;">
+            <img
+              :src="`./media/${m.filename}`"
+              :height="Math.ceil(m.size.w/4)"  
+              :width="Math.ceil(m.size.w/4)"  
+            >
+          </span>
+        </div>
+      </div>
+
+      <div v-if="tab==1">
+        <ul v-if="tweets">
+          <li v-for="tw in tweets.slice(from, from+size)" class="panel-block">
+            <div>
+              <strong>{{(new Date(tw.created_at)).toLocaleString()}}</strong>
+              <div style="margin: 0.5rem;">
+                <p>
+                  <div v-if="tw.full_text">{{tw.full_text}}</div>
+                  <div v-if="tw.type=='twitter_rt'">RT（@{{tw.rt_from_user_name}}）</div>
+                </p>
+                <div v-if="tw.media">
+                  <span v-for='m in tw.media'>
+                    <a v-if="m.type=='photo'" :href="`./media/${m.filename}`">
+                      <img
+                        :src="`./media_thumbs/${m.filename}`"
+                        :width="200"  
+                      >
+                    </a>
+                    <video
+                      v-if="m.type=='video' || m.type=='animation_gif'" 
+                      :src="`./media/${m.filename}`" controls></video>
+                  </span>
+                </div>
+              </div>
+  
+            </div>
+          </li>
+        </ul>
+        <a v-if="from-size>=0" href="#" v-on:click="onClickPrev">＜Prev　</a>
+        <a href="#" v-on:click="onClickNext">　Next＞</a>
+      </div>
+
+      <div class="section" v-if="tab==2">
+        under construction
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./tweet.js"></script>
+</body>
+
+</html>
