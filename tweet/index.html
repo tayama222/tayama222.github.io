@@ -25,11 +25,13 @@
       <div v-if="tab==0">
         <div v-for="line in topMedia" style="text-align: center;">
           <span v-for="m in line.line" class="medialine" style="text-align: center;">
-            <img
-              :src="`./media/${m.filename}`"
-              :height="Math.ceil(m.size.w/4)"  
-              :width="Math.ceil(m.size.w/4)"  
-            >
+            <a href="`./media/${m.filename}`">
+              <img
+                :src="`./media/${m.filename}`"
+                :height="Math.ceil(m.size.w/4)"  
+                :width="Math.ceil(m.size.w/4)"  
+              >
+            </a>
           </span>
         </div>
       </div>
