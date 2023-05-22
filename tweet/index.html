@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+<head prefix="og: https://ogp.me/ns#">
     <meta charset="UTF-8">
     <title>tayama222's tweets</title>
+
+    <meta property="og:url" content="https://tayama222.github.io/tweet/index.html" />
+    <!-- <meta property="og:type" content="" /> -->
+    <meta property="og:title" content="tayama222's tweets" />
+    <meta property="og:description" content="tayama222のツイート等" />
+    <!-- <meta property="og:site_name" content="" /> -->
+    <meta property="og:image" content="./assets/icon.jpg" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 
@@ -26,7 +34,7 @@
         <div v-for="line in topMedia" style="text-align: center;">
           <span v-for="m in line.line" class="medialine" style="text-align: center;">
             <img
-              :src="`./media/${m.filename}`"
+              :src="`https://tayama222.github.io/media/${m.filename}`"
               :height="Math.ceil(m.size.w/4)"  
               :width="Math.ceil(m.size.w/4)"  
             >
@@ -46,15 +54,15 @@
                 </p>
                 <div v-if="tw.media">
                   <span v-for='m in tw.media'>
-                    <a v-if="m.type=='photo'" :href="`./media/${m.filename}`">
+                    <a v-if="m.type=='photo'" :href="`https://tayama222.github.io/media/${m.filename}`">
                       <img
-                        :src="`./media_thumbs/${m.filename}`"
+                        :src="`https://tayama222.github.io/media/thumbs/${m.filename}`"
                         :width="200"  
                       >
                     </a>
                     <video
                       v-if="m.type=='video' || m.type=='animation_gif'" 
-                      :src="`./media/${m.filename}`" controls></video>
+                      :src="`https://tayama222.github.io/media/${m.filename}`" controls></video>
                   </span>
                 </div>
               </div>
